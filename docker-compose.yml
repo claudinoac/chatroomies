@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  web: &web-recipe
+    build:
+      context: ./web_application
+      dockerfile: webapp.dockerfile
+    command: "python manage.py runserver 0.0.0.0:8080"
+    volumes:
+      - ./web_application:/code
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "db"
+    container_name: "chatroomies_web"
+    stdin_open: true
+    tty: true
+  db:
+    image: percona
+    ports:
+      - "3306:3306"
+    environment:
+      "MYSQL_ALLOW_EMPTY_PASSWORD": "yes"
+    container_name: "chatroomies_db"
+
+  broker:
+    image: rabbitmq:3.8.9-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  bot:
+    build:
+      context: ./bot_server
+      dockerfile: bot.dockerfile
+    command: "python main.py"
+    volumes:
+      - ./bot_server:/code
+    container_name: "chatroomies_bot"
+    stdin_open: true
+    tty: true
+
+  cmd-receiver:
+    <<: *web-recipe
+    ports:
+      - "9090"
+    container_name: "chatroomies-cmd-receiver"
+    command: "python manage.py run_cmd_receiver"
