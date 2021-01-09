@@ -1,0 +1,42 @@
+@startuml(id=chatroomies)
+title System Landscape
+caption SystemOverview
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+skinparam rectangle<<1>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052E56
+}
+skinparam rectangle<<2>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0B4884
+}
+skinparam rectangle<<6>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0B4884
+}
+skinparam rectangle<<7>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0B4884
+}
+rectangle "==User\n<size:10>[Person]</size>\n\nActive user in the chatroom." <<1>> as 1
+rectangle "==Broker\n<size:10>[Software System]</size>\n\nCommunication gateway" <<7>> as 7
+rectangle "==Chatroomies application.\n<size:10>[Software System]</size>\n\nChatroomies application" <<2>> as 2
+rectangle "==Chatroomies bot system\n<size:10>[Software System]</size>\n\nChatroomies bot system." <<6>> as 6
+7 .[#707070].> 2 : "Send command result\n<size:8>[Event]</size>"
+7 .[#707070].> 6 : "Send command\n<size:8>[Event]</size>"
+2 .[#707070].> 7 : "Send command\n<size:8>[Event]</size>"
+6 .[#707070].> 7 : "Send command result\n<size:8>[Event]</size>"
+1 .[#707070].> 2 : "Uses\n<size:8>[Websockets]</size>"
+@enduml

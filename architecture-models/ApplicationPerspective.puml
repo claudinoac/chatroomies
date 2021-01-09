@@ -1,0 +1,49 @@
+@startuml(id=ApplicationPerspective)
+title Chatroomies application. - Containers
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+skinparam rectangle<<1>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052E56
+}
+skinparam rectangle<<3>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<4>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<5>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9A9A9A
+}
+skinparam rectangle<<6>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0B4884
+}
+rectangle "==Chatroomies bot system\n<size:10>[Software System]</size>\n\nChatroomies bot system." <<6>> as 6
+rectangle "==User\n<size:10>[Person]</size>\n\nActive user in the chatroom." <<1>> as 1
+package "Chatroomies application.\n[Software System]" {
+  rectangle "==Chatroomies Web\n<size:10>[Container]</size>\n\nWeb Server" <<4>> as 4
+  rectangle "==Chatroomies bot receiver\n<size:10>[Container]</size>\n\nReceives chatroomiesBot command results." <<5>> as 5
+  rectangle "==Database\n<size:10>[Container]</size>\n\nChatroomies DB" <<3>> as 3
+}
+4 .[#707070].> 6 : "Send command\n<size:8>[Event]</size>"
+4 .[#707070].> 3 : "Uses"
+5 .[#707070].> 3 : "Send command result\n<size:8>[Message]</size>"
+6 .[#707070].> 5 : "Send command result\n<size:8>[Event]</size>"
+1 .[#707070].> 4 : "Uses\n<size:8>[Websockets]</size>"
+@enduml
