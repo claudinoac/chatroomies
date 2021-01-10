@@ -17,7 +17,7 @@ class StockQuoteHandler:
             raise CommandError("Invalid command: {}".format(command))
 
         stock_quote = self.get_stock_quote(command)
-        if not stock_quote or stock_quote == "N/A":
+        if not stock_quote or stock_quote == "N/D":
             raise CommandError(f"Stock quote not found: {command}")
 
         return f"{command} quote is {stock_quote} per share."
