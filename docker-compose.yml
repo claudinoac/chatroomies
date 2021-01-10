@@ -36,6 +36,8 @@ services:
     command: "python main.py"
     volumes:
       - ./bot_server:/code
+    depends_on:
+      - broker
     container_name: "chatroomies_bot"
     stdin_open: true
     tty: true

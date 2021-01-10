@@ -3,6 +3,8 @@ model-mommy
 isort
 mypy
 behave
+behave-django
+pytest
 pylint
 flake8
 black
