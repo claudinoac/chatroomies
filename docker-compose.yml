@@ -5,6 +5,8 @@ services:
       context: ./web_application
       dockerfile: webapp.dockerfile
     command: "python manage.py runserver 0.0.0.0:8080"
+    environment:
+      AMQP_ADDRESS: "amqp://guest:guest@rabbitmq:5672//"
     volumes:
       - ./web_application:/code
     ports:
@@ -42,9 +44,9 @@ services:
     stdin_open: true
     tty: true
 
-  cmd-receiver:
+  cmd_receiver:
     <<: *web-recipe
     ports:
       - "9090"
-    container_name: "chatroomies-cmd-receiver"
-    command: "python manage.py run_cmd_receiver"
+    container_name: "chatroomies_bot_receiver"
+    command: "python manage.py cmd_receiver"

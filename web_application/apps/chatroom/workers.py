@@ -28,7 +28,6 @@ class BotMessageWorker(ConsumerMixin):
 
     def handle_message(self, body, message):
         logger.info(body)
-        print(body)
         message.ack()
 
 
