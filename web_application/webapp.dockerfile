@@ -11,6 +11,6 @@ RUN apk add --update --virtual .build-deps build-base \
             mariadb-client \
             mariadb-connector-c-dev \
             sqlite && \
-            pip3.7 install -U pip setuptools && \
+            pip install -U pip setuptools && \
             pip install -r requirements/development.txt
 EXPOSE 8080
