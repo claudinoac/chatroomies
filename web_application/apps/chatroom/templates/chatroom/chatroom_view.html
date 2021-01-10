@@ -1,0 +1,27 @@
+<div style="height: 100%; display:flex; flex-flow: column">
+  <div id="chatContent" style="overflow:scroll; height: 100%">
+    {% for message in messages %}
+      <div>owner: {{message.owner}}</div>
+      <div>message: {{message.content}}</div>
+      <div>created: {{message.created}}</div>
+    {% endfor %}
+
+  </div>
+
+  <form method="POST" style="">
+    {% csrf_token %}
+    {{ form.content }}
+    <input type="submit" id="submitMessage" value="Send message"></input>
+  </form>
+</div>
+<script type="text/javascript">
+  chatContent = document.getElementById("chatContent");
+  chatContent.scrollTo(0, chatContent.scrollHeight);
+  setTimeout(function(){ 
+    inputElement = document.querySelector("[name=content]")
+    if(!inputElement.value){
+      window.location.href=window.location;
+    }
+  }, 5000)
+
+</script>

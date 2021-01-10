@@ -1,6 +1,7 @@
-from apps.chatroom.views import hello_view
+from apps.chatroom.views import ChatroomView, chatroom_add_view
 from django.urls import path
 
 urlpatterns = [
-    path('', hello_view)
+    path('<int:chatroom_id>/', ChatroomView.as_view()),
+    path('add/', chatroom_add_view)
 ]
