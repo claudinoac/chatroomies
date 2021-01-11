@@ -18,6 +18,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('chatroom/', include('apps.chatroom.urls')),
-    path('', include('django.contrib.auth.urls'))
+    path('chatroom/', include('apps.chatroom.urls', namespace="chatroom")),
+    path('login/', include('apps.login.urls', namespace="login")),
 ]
