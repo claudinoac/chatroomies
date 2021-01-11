@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import sys
+from kombu import Exchange
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -144,5 +145,12 @@ LOGGING = {
 STATIC_URL = '/static/'
 
 AMQP_ADDRESS = os.environ.get("AMQP_ADDRESS")
-ROUTING_KEY = os.environ.get("RECEIVER_ROUTING_KEY", "chatroomies.replies")
-EXCHANGE = os.environ.get("EXCHANGE", "chatroomies")
+RECEIVER_ROUTING_KEY = os.environ.get("RECEIVER_ROUTING_KEY", "chatroomies.replies")
+SENDER_ROUTING_KEY = os.environ.get("SENDER_ROUTING_KEY", "chatroomies.commands")
+EXCHANGE_NAME = os.environ.get("EXCHANGE_NAME", "chatroomies")
+DEFAULT_BOT_QUEUE = os.environ.get("DEFAULT_BOT_QUEUE", "bot-server")
+EXCHANGE = Exchange(EXCHANGE_NAME)
+
+
+LOGIN_URL = '/login/'
+BOT_USER_ID=8

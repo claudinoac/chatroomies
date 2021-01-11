@@ -3,6 +3,8 @@ from kombu.mixins import ConsumerMixin
 from django.conf import settings
 from os import environ
 from kombu import Connection, Queue, Consumer, Exchange
+from apps.message.commands import CreateMessageCommand
+from apps.message.handlers import CreateMessageHandler
 
 
 exchange = Exchange(settings.EXCHANGE, type="direct")
@@ -27,7 +29,15 @@ class BotMessageWorker(ConsumerMixin):
         )]
 
     def handle_message(self, body, message):
+        result = body.get("result")
+        chatroom_id = body.get("chatroom_id")
         logger.info(body)
+        command = CreateMessageCommand(
+            user_id=settings.BOT_USER_ID,
+            content=result,
+            chatroom_id=chatroom_id
+        )
+        CreateMessageHandler().handle(command)
         message.ack()
 
 

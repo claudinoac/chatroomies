@@ -34,7 +34,7 @@ class Worker(ConsumerProducerMixin):
         command = message.payload.get("command")
         argument = message.payload.get("argument")
         user_id = message.payload.get("user")
-        chatroom_id = message.payload.get("chatroom")
+        chatroom_id = message.payload.get("chatroom_id")
 
         if command in supported_handlers:
             command_handler = supported_handlers.get(command)
