@@ -4,7 +4,7 @@ MAKEFLAGS += --silent
 RUN_WEB = docker-compose run --rm -w /code web
 EXEC_WEB = docker-compose exec web
 RUN_BOT = docker-compose run --rm -w /code bot
-EXEC_WEB = docker-compose exec bot
+EXEC_BOT = docker-compose exec bot
 
 # HELP COMMANDS
 help: ## show this help
@@ -33,11 +33,13 @@ endif
 
 init: ## build containers and run fixtures
 	@ make run
-	@ $(EXEC) sh -c "ls apps/**/fixtures/*.json | xargs -I {} python manage.py loaddata {}"
+	@ $(EXEC_WEB) python manage.py migrate
+	@ $(EXEC_WEB) sh -c "ls apps/**/fixtures/*.json | xargs -I {} python manage.py loaddata {}"
 
 .PHONY : run
 run: ## start the application
-	@ docker-compose -f ../docker-compose.yml up -d db
+	@ docker-compose up -d db broker
+	@ sleep 10
 	@ docker-compose up -d
 
 .PHONY : test

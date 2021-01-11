@@ -1,0 +1,9 @@
+<div>
+  <h2>Choose a chat to join</h2>
+  <a href="{% url 'chatroom:chatroom_add' %}"><button>New Chatroom</button></a>
+  <ul>
+  {% for chatroom in object_list %}
+  <li><a href="{% url 'chatroom:chatroom_view' chatroom.id %}">{{chatroom.name}} </a></li>
+  {% endfor %}
+  </ul>
+</div>

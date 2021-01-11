@@ -148,9 +148,12 @@ EXCHANGE_NAME = os.environ.get("EXCHANGE_NAME", "chatroomies")
 EXCHANGE = Exchange(EXCHANGE_NAME, type="direct")
 
 DEFAULT_BOT_QUEUE = os.environ.get("DEFAULT_BOT_QUEUE", "bot-server")
+BOT_QUEUE = Queue(DEFAULT_BOT_QUEUE, routing_key=SENDER_ROUTING_KEY, exchange=EXCHANGE)
+
 DEFAULT_BOT_RECEIVER_QUEUE = os.environ.get("DEFAULT_BOT_RECEIVER_QUEUE", "bot-receiver")
 BOT_RECEIVER_QUEUE = Queue(DEFAULT_BOT_RECEIVER_QUEUE, routing_key=RECEIVER_ROUTING_KEY, exchange=EXCHANGE)
 
 
 LOGIN_URL = "/login/"
+DEFAULT_URL = "/chatroom/"
 BOT_USER_ID = 8

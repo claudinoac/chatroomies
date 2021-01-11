@@ -3,6 +3,9 @@ from kombu import Connection
 
 from apps.message.commands import CreateBotMessageCommand
 from apps.message.models import Message
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class CreateBotMessageHandler:
@@ -21,7 +24,9 @@ class CreateBotMessageHandler:
             retry=True,
             exchange=settings.EXCHANGE,
             routing_key=settings.SENDER_ROUTING_KEY,
+            declare=[settings.BOT_QUEUE]
         )
+        connection.release()
 
 
 class CreateMessageHandler:
