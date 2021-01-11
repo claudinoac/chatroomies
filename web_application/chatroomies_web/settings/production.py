@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import sys
-from kombu import Exchange
+
+from kombu import Exchange, Queue
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", '+n3v3&41@2t!d1q#b0686@^1y%16mhx0nfa&iek88&3(*le$0$')
+SECRET_KEY = os.environ.get("SECRET_KEY", "+n3v3&41@2t!d1q#b0686@^1y%16mhx0nfa&iek88&3(*le$0$")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -33,57 +34,57 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'apps.chatroom',
-    'apps.message',
-    'apps.login'
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "apps.chatroom",
+    "apps.message",
+    "apps.login",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'chatroomies_web.urls'
+ROOT_URLCONF = "chatroomies_web.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'chatroomies_web.wsgi.application'
+WSGI_APPLICATION = "chatroomies_web.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': "chatroomies",
-        'USER': "root",
-        'HOST': "db"
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "chatroomies",
+        "USER": "root",
+        "HOST": "db",
     }
 }
 
@@ -93,16 +94,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -110,9 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -121,36 +122,35 @@ USE_L10N = True
 USE_TZ = True
 
 LOGGING = {
-    'version': 1,
-    'handlers': {
-        'console':{
-            'level':'INFO',
-            'class':'logging.StreamHandler',
-            'stream': sys.stdout
+    "version": 1,
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
         },
     },
-    'loggers': {
-        '': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': True
-        }
-    }
+    "loggers": {"": {"handlers": ["console"], "level": "INFO", "propagate": True}},
 }
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 AMQP_ADDRESS = os.environ.get("AMQP_ADDRESS")
+
 RECEIVER_ROUTING_KEY = os.environ.get("RECEIVER_ROUTING_KEY", "chatroomies.replies")
 SENDER_ROUTING_KEY = os.environ.get("SENDER_ROUTING_KEY", "chatroomies.commands")
+
 EXCHANGE_NAME = os.environ.get("EXCHANGE_NAME", "chatroomies")
+EXCHANGE = Exchange(EXCHANGE_NAME, type="direct")
+
 DEFAULT_BOT_QUEUE = os.environ.get("DEFAULT_BOT_QUEUE", "bot-server")
-EXCHANGE = Exchange(EXCHANGE_NAME)
+DEFAULT_BOT_RECEIVER_QUEUE = os.environ.get("DEFAULT_BOT_RECEIVER_QUEUE", "bot-receiver")
+BOT_RECEIVER_QUEUE = Queue(DEFAULT_BOT_RECEIVER_QUEUE, routing_key=RECEIVER_ROUTING_KEY, exchange=EXCHANGE)
 
 
-LOGIN_URL = '/login/'
-BOT_USER_ID=8
+LOGIN_URL = "/login/"
+BOT_USER_ID = 8

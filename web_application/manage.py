@@ -5,10 +5,10 @@ import sys
 
 
 def main():
-    if 'test' in sys.argv:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chatroomies_web.settings.testing')
+    if "test" in sys.argv:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "chatroomies_web.settings.testing")
     else:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chatroomies_web.settings.development')
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "chatroomies_web.settings.development")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -20,5 +20,5 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

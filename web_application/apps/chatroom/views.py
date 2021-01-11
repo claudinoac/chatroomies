@@ -1,17 +1,17 @@
-from django.http import HttpResponse
-from apps.chatroom.models import Chatroom
-from apps.message.models import Message
-from django.views.generic import TemplateView
-from django.shortcuts import render, get_object_or_404
-from apps.message.forms import MessageForm
-from apps.message.commands import CreateMessageCommand
-from apps.message.handlers import CreateMessageHandler
-from django.contrib.auth.mixins import LoginRequiredMixin
-
 import logging
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.views.generic import TemplateView
+
+from apps.chatroom.models import Chatroom
+from apps.message.commands import CreateMessageCommand
+from apps.message.forms import MessageForm
+from apps.message.handlers import CreateMessageHandler
 
 logger = logging.getLogger(__name__)
+
 
 class ChatroomView(LoginRequiredMixin, TemplateView):
     template_name = "chatroom/chatroom_view.html"
@@ -23,9 +23,9 @@ class ChatroomView(LoginRequiredMixin, TemplateView):
         message_list = list(chatroom.message_set.order_by("-created")[:50])
         message_list.reverse()
         context = {
-            'chatroom': chatroom,
-            'messages': message_list,
-            'form': self.form_class()
+            "chatroom": chatroom,
+            "messages": message_list,
+            "form": self.form_class(),
         }
         return context
 
@@ -34,16 +34,18 @@ class ChatroomView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request, chatroom_id):
-        form = self.form_class({
-            'content': request.POST.get("content"),
-            'user_id': request.user.id,
-            'chatroom_id': chatroom_id
-        })
+        form = self.form_class(
+            {
+                "content": request.POST.get("content"),
+                "user_id": request.user.id,
+                "chatroom_id": chatroom_id,
+            }
+        )
         if form.is_valid():
             command = CreateMessageCommand(
                 user_id=form.cleaned_data.get("user_id"),
                 chatroom_id=form.cleaned_data.get("chatroom_id"),
-                content=form.cleaned_data.get("content")
+                content=form.cleaned_data.get("content"),
             )
             result = self.handler.handle(command)
             logger.error(result)

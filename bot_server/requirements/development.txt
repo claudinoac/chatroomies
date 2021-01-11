@@ -1,2 +1,5 @@
 -r production.txt
 pytest
+isort
+black
+flake8

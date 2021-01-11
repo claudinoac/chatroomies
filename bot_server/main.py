@@ -1,8 +1,10 @@
-from kombu.mixins import ConsumerProducerMixin
-from kombu import Connection, Queue, Consumer, Exchange
-from os import environ
-from stock import StockQuoteHandler, CommandError
 import logging
+from os import environ
+
+from kombu import Connection, Exchange, Queue
+from kombu.mixins import ConsumerProducerMixin
+
+from stock import CommandError, StockQuoteHandler
 
 ROUTING_KEY = environ.get("COMMAND_ROUTING_KEY", "chatroomies.commands")
 EXCHANGE = environ.get("EXCHANGE", "chatroomies")
@@ -16,19 +18,16 @@ supported_handlers = {
     "stock": StockQuoteHandler(),
 }
 
-class Worker(ConsumerProducerMixin):
 
+class Worker(ConsumerProducerMixin):
     def __init__(self, connection, queue):
         self.connection = connection
         self.queue = queue
 
     def get_consumers(self, consumer, channel):
-        return [consumer(
-            queues=[self.queue],
-            on_message=self.handle_message,
-            accept={'application/json'},
-            prefetch_count=1
-        )]
+        return [
+            consumer(queues=[self.queue], on_message=self.handle_message, accept={"application/json"}, prefetch_count=1)
+        ]
 
     def handle_message(self, message):
         command = message.payload.get("command")
@@ -52,16 +51,16 @@ class Worker(ConsumerProducerMixin):
                 "result": result,
                 "user_id": user_id,
                 "chatroom_id": chatroom_id,
-             },
+            },
             exchange="chatroomies",
             routing_key="chatroomies.replies",
             serializer="json",
-            retry=True
+            retry=True,
         )
         message.ack()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     logger.info("Starting server")
     with Connection("amqp://guest:guest@rabbitmq:5672//") as connection:
         try:

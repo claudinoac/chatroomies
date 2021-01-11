@@ -1,7 +1,8 @@
-from apps.message.models import Message
-from kombu import Connection, Queue, Exchange
-from apps.message.commands import CreateBotMessageCommand
 from django.conf import settings
+from kombu import Connection
+
+from apps.message.commands import CreateBotMessageCommand
+from apps.message.models import Message
 
 
 class CreateBotMessageHandler:
@@ -10,7 +11,7 @@ class CreateBotMessageHandler:
             "command": command.command,
             "argument": command.argument,
             "user_id": command.user_id,
-            "chatroom_id": command.chatroom_id
+            "chatroom_id": command.chatroom_id,
         }
         connection = Connection(settings.AMQP_ADDRESS)
         connection.connect()
@@ -24,7 +25,6 @@ class CreateBotMessageHandler:
 
 
 class CreateMessageHandler:
-
     def handle(self, command):
         if command.content.startswith("/"):
             cleaned_message = command.content.split("/")[-1]
@@ -37,12 +37,12 @@ class CreateMessageHandler:
                 command=bot_command,
                 argument=bot_argument,
                 chatroom_id=command.chatroom_id,
-                user_id=command.user_id
+                user_id=command.user_id,
             )
             CreateBotMessageHandler().handle(new_command)
 
         return Message.objects.create(
             owner_id=command.user_id,
             content=command.content,
-            chatroom_id=command.chatroom_id
+            chatroom_id=command.chatroom_id,
         )

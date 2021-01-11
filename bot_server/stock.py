@@ -1,6 +1,6 @@
-import csv
-import requests
 import logging
+
+import requests
 
 STOOQ_API_URL = "https://stooq.com/q/l/?s={stock_code}&f=sd2t2ohlcv&h&e=csv"
 STOOQ_QUOTE_INDEX = "Close"
@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 class CommandError(Exception):
     pass
+
 
 class StockQuoteHandler:
     def handle(self, command):
