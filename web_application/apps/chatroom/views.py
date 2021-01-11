@@ -6,27 +6,26 @@ from django.shortcuts import render, get_object_or_404
 from apps.message.forms import MessageForm
 from apps.message.commands import CreateMessageCommand
 from apps.message.handlers import CreateMessageHandler
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 import logging
 
 
 logger = logging.getLogger(__name__)
 
-class ChatroomView(TemplateView):
+class ChatroomView(LoginRequiredMixin, TemplateView):
     template_name = "chatroom/chatroom_view.html"
     form_class = MessageForm
     handler = CreateMessageHandler()
 
     def get_context_data(self, chatroom_id, user_id):
         chatroom = get_object_or_404(Chatroom, id=chatroom_id)
-        initial_data = {
-            "user_id": user_id,
-            "chatroom_id": chatroom_id
-        }
+        message_list = list(chatroom.message_set.order_by("-created")[:50])
+        message_list.reverse()
         context = {
             'chatroom': chatroom,
-            'messages': chatroom.message_set.order_by('created')[:50],
-            'form': self.form_class(initial=initial_data)
+            'messages': message_list,
+            'form': self.form_class()
         }
         return context
 
@@ -35,7 +34,6 @@ class ChatroomView(TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request, chatroom_id):
-        context = self.get_context_data(chatroom_id, request.user.id)
         form = self.form_class({
             'content': request.POST.get("content"),
             'user_id': request.user.id,
@@ -52,6 +50,7 @@ class ChatroomView(TemplateView):
         else:
             pass
 
+        context = self.get_context_data(chatroom_id, request.user.id)
         return render(request, self.template_name, context)
 
 

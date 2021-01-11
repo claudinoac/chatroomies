@@ -1,14 +1,19 @@
 <div style="height: 100%; display:flex; flex-flow: column">
+  <div style="background-color:#F3652B">Current chatroom: {{chatroom.name}}</div>
   <div id="chatContent" style="overflow:scroll; height: 100%">
     {% for message in messages %}
-      <div>owner: {{message.owner}}</div>
-      <div>message: {{message.content}}</div>
-      <div>created: {{message.created}}</div>
+      <div id="chatItem" class="chat-item">
+        <div>{{message.owner}} says:</div>
+        <div class="message-content">
+          <div>{{message.content}}</div>
+          <div>created: {{message.created}}</div>
+        </div>
+      </div>
     {% endfor %}
 
   </div>
 
-  <form method="POST" style="">
+  <form method="POST" style="" class="chat-form">
     {% csrf_token %}
     {{ form.content }}
     <input type="submit" id="submitMessage" value="Send message"></input>
@@ -25,3 +30,14 @@
   }, 5000)
 
 </script>
+
+<style>
+  .chat-item {
+    margin: 10px 0;
+  }
+  .message-content {
+    display: flex;
+    margin-left: 30px;
+    justify-content: space-between;
+  }
+</style>

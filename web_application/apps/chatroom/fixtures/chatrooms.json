@@ -1,0 +1,18 @@
+[
+{
+    "model": "chatroom.chatroom",
+    "pk": 1,
+    "fields": {
+        "name": "first_chat_room",
+        "active_users": []
+    }
+},
+{
+    "model": "chatroom.chatroom",
+    "pk": 2,
+    "fields": {
+        "name": "second_chat_room",
+        "active_users": []
+    }
+}
+]
