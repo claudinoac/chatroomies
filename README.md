@@ -51,7 +51,7 @@ Featuring:
 - Access [http://localhost:8080](http://localhost:8080')
 
 - Log-in into the platform using default credentials or create another one on /login/signup endpoint
--- Default credentials - user:admin - password: admin
+    - Default credentials - user:admin - password: admin
 
 - Choose or create a new chat in the /chatroom endpoint (will be automatically redirected to after login or signup)
 - Start chatting ! 
