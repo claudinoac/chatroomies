@@ -61,6 +61,13 @@ The architecture model was created using [Structurizr DSL](https://github.com/st
 ![system-perspective](architecture-models/SystemPerspective.png)
 ![application-perspective](architecture-models/ApplicationPerspective.png)
 
+There are 5 containers in the whole project
+
+- percona -> MySQL database
+- rabbitmq -> RabbitMQ broker
+- chatroomies_web -> Django Web application Server
+- chatroomies_bot -> Chatroomies Bot Server
+- chatroomies_bot_receiver -> Chatroomies Bot Result Receiver
 
 ## Testing:
 
