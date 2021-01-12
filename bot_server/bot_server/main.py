@@ -3,7 +3,6 @@ from os import environ
 
 from kombu import Connection, Exchange, Queue
 from kombu.mixins import ConsumerProducerMixin
-
 from stock import CommandError, StockQuoteHandler
 
 ROUTING_KEY = environ.get("COMMAND_ROUTING_KEY", "chatroomies.commands")

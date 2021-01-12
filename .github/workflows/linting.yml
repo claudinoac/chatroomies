@@ -1,0 +1,61 @@
+name: Lint
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  push:
+    branches:
+      - main
+
+
+jobs:
+  LintWebApplication:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r web_application/requirements/development.txt
+    - name: Flake8
+      run: |
+        cd web_application
+        python -m flake8
+    - name: Isort
+      run: |
+        cd web_application
+        python -m isort --check apps
+    - name: Black
+      run: |
+        cd web_application
+        python -m black --check apps
+  LintBot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r bot_server/requirements/development.txt
+    - name: Flake8
+      run: |
+        cd bot_server
+        python -m flake8
+    - name: Isort
+      run: |
+        cd bot_server
+        python -m isort --check bot_server
+    - name: Black
+      run: |
+        cd bot_server
+        python -m black --check bot_server

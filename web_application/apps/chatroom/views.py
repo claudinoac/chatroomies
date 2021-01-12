@@ -1,11 +1,10 @@
 import logging
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
-from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
 
 from apps.chatroom.models import Chatroom
 from apps.message.commands import CreateMessageCommand
@@ -49,7 +48,7 @@ class ChatroomView(LoginRequiredMixin, TemplateView):
                 chatroom_id=form.cleaned_data.get("chatroom_id"),
                 content=form.cleaned_data.get("content"),
             )
-            result = self.handler.handle(command)
+            self.handler.handle(command)
             context = self.get_context_data(chatroom_id, request.user.id)
         else:
             context = self.get_context_data(chatroom_id, request.user.id)
@@ -58,11 +57,10 @@ class ChatroomView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, context)
 
 
-
 class ChatroomListView(LoginRequiredMixin, ListView):
     model = Chatroom
 
 
 class ChatroomAddView(LoginRequiredMixin, CreateView):
     model = Chatroom
-    fields = ['name']
+    fields = ["name"]

@@ -15,6 +15,5 @@ class MessageForm(forms.Form):
             try:
                 bot_command, bot_argument = cleaned_message.split("=")
             except ValueError:
-                raise ValidationError("Invalid command. The command must be in the format \"/command=argument\"")
+                raise ValidationError('Invalid command. The command must be in the format "/command=argument"')
         return content
-
