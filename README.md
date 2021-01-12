@@ -14,7 +14,8 @@ A web-based chat system
 
 Featuring:
 
-- ...
+- Stock quote bot in the chatrooms (just type /command=argument in the chat)
+- Multiple chatrooms
 
 
 ## Table of Contents:
@@ -43,14 +44,17 @@ Featuring:
 
 ### Setup:
 
-- Build and run container:
-	+ ```$ docker-compose up -d```
+- Run `make init`
+- Wait until all the container are up and running
 
 
-- Access [http://localhost:...](http://localhost:...')
+- Access [http://localhost:8080](http://localhost:8080')
 
-- Log-in into the platform
-- Use the chat
+- Log-in into the platform using default credentials or create another one on /login/signup endpoint
+-- Default credentials - user:admin - password: admin
+
+- Choose or create a new chat in the /chatroom endpoint (will be automatically redirected to after login or signup)
+- Start chatting ! 
 
 ---
 
@@ -73,17 +77,6 @@ The architecture model was created using [Structurizr DSL](https://github.com/st
 - To run the unit tests, run 
 	- ```$ make test unit```
 
-### Integration tests
-- The integration tests are based on [Behave BDD Testing](https://behave.readthedocs.io/en/latest/)
-
-- All the integration tests should be located in `tests/integration` path, inside each application
-
-- Every integration test has two parts: the .feature and the .py (steps) file
-	- For details, check the [behave's documentation](https://behave.readthedocs.io/en/latest/)
-
-- To run the integration tests, run 
-	- ```$ make test integration```
-	
 ---
 
 ## Contributing
