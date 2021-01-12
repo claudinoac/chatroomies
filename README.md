@@ -2,12 +2,8 @@
 
 # Chatroomies
 
-[![Coverage](https://codecov.io/gh/claudinoac/chatrommies/branch/master/graph/badge.svg)](https://codecov.io/gh/claudinoac/chatroomies)
-![Deploy](https://github.com/claudinoac/chatroomies/workflows/Deploy/badge.svg)
-![Tests](https://github.com/claudinoac/chatroomies/workflows/Tests/badge.svg?branch=dev)
-![Security Checks](https://github.com/claudinoac/chatroomies/workflows/Security/badge.svg?branch=dev)
-![Lint](https://github.com/claudinoac/chatroomies/workflows/Lint/badge.svg?branch=dev)
-[![PyPI version](https://badge.fury.io/py/chatroomies.svg)](https://badge.fury.io/py/chatroomies)
+![Tests](https://github.com/claudinoac/chatroomies/workflows/Tests/badge.svg?branch=main)
+![Lint](https://github.com/claudinoac/chatroomies/workflows/Lint/badge.svg?branch=main)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 A web-based chat system
