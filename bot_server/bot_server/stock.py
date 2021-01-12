@@ -21,7 +21,7 @@ class StockQuoteHandler:
         if not stock_quote or stock_quote == "N/D":
             raise CommandError(f"Stock quote not found: {command}")
 
-        return f"{command} quote is {stock_quote} per share."
+        return f"{command.upper()} quote is ${stock_quote} per share."
 
     def get_stock_quote(self, stock_code):
         api_url = STOOQ_API_URL.format(stock_code=stock_code)

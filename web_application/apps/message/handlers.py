@@ -33,11 +33,7 @@ class CreateMessageHandler:
     def handle(self, command):
         if command.content.startswith("/"):
             cleaned_message = command.content.split("/")[-1]
-            try:
-                bot_command, bot_argument = cleaned_message.split("=")
-            except ValueError:
-                bot_command = cleaned_message
-                bot_argument = ""
+            bot_command, bot_argument = cleaned_message.split("=")
             new_command = CreateBotMessageCommand(
                 command=bot_command,
                 argument=bot_argument,
@@ -45,9 +41,9 @@ class CreateMessageHandler:
                 user_id=command.user_id,
             )
             CreateBotMessageHandler().handle(new_command)
-
-        return Message.objects.create(
-            owner_id=command.user_id,
-            content=command.content,
-            chatroom_id=command.chatroom_id,
-        )
+        else:
+            return Message.objects.create(
+                owner_id=command.user_id,
+                content=command.content,
+                chatroom_id=command.chatroom_id,
+            )

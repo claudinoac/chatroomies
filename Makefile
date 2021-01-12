@@ -45,12 +45,12 @@ run: ## start the application
 .PHONY : test
 test: ## run the application tests
 ifeq ($(ARGS), unit)
-	@ $(RUN_WEB) python manage.py test tests.unit
-	@ $(RUN_BOT) py.test tests.unit
+	@ $(RUN_WEB) py.test
+	@ $(RUN_BOT) python -m pytest
 else ifeq ($(ARGS), integration)
 	@ $(RUN_WEB) python manage.py behave --no-capture tests.integration
 else
-	make test integration
+	# make test integration
 	make test unit
 endif
 

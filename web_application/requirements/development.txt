@@ -5,6 +5,7 @@ mypy
 behave
 behave-django
 pytest
+pytest-django
 pylint
 flake8
 black

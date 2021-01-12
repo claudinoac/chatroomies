@@ -37,12 +37,11 @@ services:
     build:
       context: ./bot_server
       dockerfile: bot.dockerfile
-    command: "python main.py"
+    command: "python bot_server/main.py"
     volumes:
       - ./bot_server:/code
     depends_on:
       - broker
-    container_name: "chatroomies_bot"
     stdin_open: true
     tty: true
 

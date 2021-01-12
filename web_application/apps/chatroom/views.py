@@ -50,11 +50,11 @@ class ChatroomView(LoginRequiredMixin, TemplateView):
                 content=form.cleaned_data.get("content"),
             )
             result = self.handler.handle(command)
-            logger.error(result)
+            context = self.get_context_data(chatroom_id, request.user.id)
         else:
-            pass
+            context = self.get_context_data(chatroom_id, request.user.id)
+            context.update({"form": form})
 
-        context = self.get_context_data(chatroom_id, request.user.id)
         return render(request, self.template_name, context)
 
 
