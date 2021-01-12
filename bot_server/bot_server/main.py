@@ -42,7 +42,7 @@ class Worker(ConsumerProducerMixin):
             except CommandError as command_error:
                 result = str(command_error)
         else:
-            result = f"I don't recognize this command: {command}. Please, try another one"
+            result = f"I didn't recognize this command: {command}. Please, try another one"
 
         logger.info("Result: %s", result)
 
